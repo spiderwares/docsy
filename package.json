@@ -1,0 +1,23 @@
+{
+	"name": "docsy",
+	"version": "1.0.0",
+	"description": "WordPress Block Theme by Spiderwares with block creation support",
+	"scripts": {
+		"start": "wp-scripts start",
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"create:block": "npx --yes @wordpress/create-block@latest --no-plugin --namespace=docsy && node move-block.js"
+	},
+	"devDependencies": {
+		"@babel/preset-react": "^7.27.1",
+		"@wordpress/create-block": "^3.4.0",
+		"@wordpress/dependency-extraction-webpack-plugin": "^6.25.0",
+		"@wordpress/scripts": "^30.19.0"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config"
+	]
+}

@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "docsy/popular-articles-block",
+	"version": "0.1.0",
+	"title": "Popular Article Block",
+	"category": "theme",
+	"icon": "welcome-write-blog",
+	"description": "A block for displaying popular articles with icons and colors.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "popular-articles-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"articles": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"title": { "type": "string" },
+					"description": { "type": "string" },
+					"meta": { "type": "string" },
+					"icon": { "type": "string" },
+					"color": { "type": "string" },
+					"iconUrl": { "type": "string" },
+					"bgColor": { "type": "string" },
+					"iconColor": { "type": "string" },
+					"iconBgColor": { "type": "string" }
+				}
+			}
+		}
+	}
+}

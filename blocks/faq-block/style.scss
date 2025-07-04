@@ -1,0 +1,47 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-docsy-faq-block {
+	background-color: #21759b;
+	color: #fff;
+	padding: 2px;
+}
+
+.faq-block {
+	// background and color handled inline
+	padding: 16px;
+}
+.faq-item {
+	margin-bottom: 1em;
+}
+.faq-question {
+	font-weight: bold;
+	margin-bottom: 0.25em;
+}
+.faq-answer {
+	margin-left: 1em;
+}
+.faq-content {
+	display: none;
+	transition: all 0.2s;
+	&.show {
+		display: block;
+	}
+}
+.faq-icon {
+	transition: transform 0.2s;
+	display: inline-block;
+	vertical-align: middle;
+	svg {
+		transition: transform 0.2s; // Ensure smooth rotation
+		transform: rotate(0deg); // Arrow points down by default
+	}
+}
+.faq-icon svg.rotated {
+	transform: rotate(180deg); // Arrow points up when open
+	transition: transform 0.2s; // Ensure smooth rotation
+}

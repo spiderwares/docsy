@@ -1,0 +1,105 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-docsy-category-block {
+	// Remove the red border and add a subtle background for clarity in the editor
+	background: #f8fafc;
+	border: 1px solid #e5e7eb;
+	border-radius: 10px;
+	padding: 24px 16px;
+	margin-bottom: 24px;
+
+	.section-header {
+		text-align: center;
+		margin-bottom: 2rem;
+		h2 {
+			margin: 0 0 0.5rem 0;
+			font-size: 1.6rem;
+			color: #222;
+		}
+		p {
+			margin: 0;
+			color: #666;
+			font-size: 1rem;
+		}
+	}
+
+	.category-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		justify-content: center;
+	}
+
+	.category-card {
+		background: #fff;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+		padding: 2rem 1.5rem;
+		width: 260px;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		transition: box-shadow 0.2s;
+		&:hover {
+			box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+		}
+		.icon-box {
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 1rem;
+			font-size: 2rem;
+			&.green { background: #27ae60; color: #fff; }
+			&.blue { background: #2980b9; color: #fff; }
+			&.purple { background: #8e44ad; color: #fff; }
+			&.orange { background: #e67e22; color: #fff; }
+			&.red { background: #e74c3c; color: #fff; }
+			&.indigo { background: #5f27cd; color: #fff; }
+		}
+		h3 {
+			margin: 0.5rem 0 0.25rem 0;
+			font-size: 1.25rem;
+		}
+		p {
+			color: #666;
+			font-size: 1rem;
+			margin: 0 0 0.5rem 0;
+		}
+		.article-count {
+			font-size: 0.95rem;
+			color: #888;
+		}
+	}
+}
+
+// Sidebar controls styling (applies to InspectorControls panel)
+.block-editor-block-inspector {
+	.components-panel__body {
+		> .components-panel__row {
+			margin-bottom: 12px;
+		}
+		strong {
+			display: block;
+			margin-bottom: 6px;
+			font-size: 1.05em;
+			color: #333;
+		}
+	}
+	// Card panel separation
+	.components-panel__body > div {
+		padding-bottom: 8px;
+		margin-bottom: 16px;
+		border-bottom: 1px solid #eee;
+	}
+	.components-button.is-destructive {
+		margin-top: 6px;
+	}
+}

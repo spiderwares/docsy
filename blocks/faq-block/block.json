@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "docsy/faq-block",
+	"version": "0.1.0",
+	"title": "FAQ Block",
+	"category": "theme",
+	"icon": "faq",
+	"description": "Example block scaffolded with Create Block tool.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "docsy",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"faqs": {
+			"type": "array",
+			"default": [
+				{ "question": "How do I create my first booking?", "answer": "To create your first booking, navigate to the dashboard and click \"New Booking\". Follow the setup wizard to configure your service details, availability, and pricing options." },
+				{ "question": "Can I customize the booking form design?", "answer": "Yes! You can fully customize your booking form's appearance including colors, fonts, and layout to match your brand. Access the customization options in Settings > Appearance." },
+				{ "question": "How do payment processing and fees work?", "answer": "We integrate with major payment processors like Stripe and PayPal. Transaction fees vary by payment method, typically 2.9% + 30¢ per transaction. You can view detailed fee structures in your billing settings." },
+				{ "question": "Is there a mobile app available?", "answer": "Currently, we offer a fully responsive web application that works seamlessly on mobile devices. Native mobile apps for iOS and Android are planned for future release." },
+				{ "question": "How can I integrate with my existing website?", "answer": "Integration is simple! You can embed booking forms using our widget code, use our WordPress plugin, or integrate via our REST API. Detailed integration guides are available in our documentation." }
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"question": { "type": "string" },
+					"answer": { "type": "string" }
+				}
+			}
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#fff"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#FFFFFF"
+		},
+		"headerTitle": {
+			"type": "string",
+			"default": "Frequently Asked Questions"
+		},
+		"headerSubtitle": {
+			"type": "string",
+			"default": "Quick answers to common questions"
+		}
+	}
+}

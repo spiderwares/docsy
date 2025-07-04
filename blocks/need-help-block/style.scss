@@ -1,0 +1,27 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-docsy-need-help-block {
+	background-color: #f9fafb;
+	padding: 4rem 0;
+
+	.text-center {
+		text-align: center;
+	}
+
+	.button-icon {
+		margin-right: 8px;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	a {
+		transition: all 0.2s;
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
