@@ -7,6 +7,3 @@
  * @package docsy
  * @since 1.0.0
  */
-get_header();
-get_content();
-get_footer();

@@ -27,6 +27,7 @@ import {
 	TextareaControl,
 	Button,
 	ColorPalette,
+	ButtonGroup,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 
@@ -68,6 +69,22 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({ buttons: newButtons });
 	};
 
+	// Move button up
+	const moveButtonUp = (index) => {
+		if (index === 0) return; // Can't move first button up
+		const newButtons = [...buttons];
+		[newButtons[index], newButtons[index - 1]] = [newButtons[index - 1], newButtons[index]];
+		setAttributes({ buttons: newButtons });
+	};
+
+	// Move button down
+	const moveButtonDown = (index) => {
+		if (index === buttons.length - 1) return; // Can't move last button down
+		const newButtons = [...buttons];
+		[newButtons[index], newButtons[index + 1]] = [newButtons[index + 1], newButtons[index]];
+		setAttributes({ buttons: newButtons });
+	};
+
 	return (
 		<>
 			<InspectorControls>
@@ -85,11 +102,50 @@ export default function Edit({ attributes, setAttributes }) {
 				</PanelBody>
 				<PanelBody title="Buttons" initialOpen={true}>
 					{buttons.map((btn, i) => (
-						<PanelBody
-							title={`Button ${i + 1}: ${btn.text || 'Button'}`}
-							initialOpen={false}
-							key={i}
-						>
+						<div key={i} style={{ 
+							border: '1px solid #ddd', 
+							borderRadius: '8px', 
+							marginBottom: '1rem', 
+							padding: '1rem',
+							backgroundColor: '#f9f9f9'
+						}}>
+							{/* Button Header with Controls */}
+							<div style={{ 
+								display: 'flex', 
+								justifyContent: 'space-between', 
+								alignItems: 'center', 
+								marginBottom: '1rem',
+								paddingBottom: '0.5rem',
+								borderBottom: '1px solid #eee'
+							}}>
+								<h4 style={{ margin: 0, fontSize: '14px', fontWeight: '600' }}>
+									Button #{i + 1} - {btn.text || 'Untitled Button'}
+								</h4>
+								<ButtonGroup>
+									<Button
+										isSmall
+										icon="arrow-up-alt2"
+										label="Move Button Up"
+										onClick={() => moveButtonUp(i)}
+										disabled={i === 0}
+									/>
+									<Button
+										isSmall
+										icon="arrow-down-alt2"
+										label="Move Button Down"
+										onClick={() => moveButtonDown(i)}
+										disabled={i === (buttons.length - 1)}
+									/>
+									<Button
+										isSmall
+										isDestructive
+										icon="trash"
+										label="Remove Button"
+										onClick={() => removeButton(i)}
+									/>
+								</ButtonGroup>
+							</div>
+
 							<TextControl
 								label="Button Text"
 								value={btn.text}
@@ -144,17 +200,10 @@ export default function Edit({ attributes, setAttributes }) {
 									onChange={(v) => updateButton(i, 'hoverBorder', v)}
 								/>
 							</PanelBody>
-							<Button
-								isDestructive
-								onClick={() => removeButton(i)}
-								style={{ marginTop: 8 }}
-							>
-								Remove Button
-							</Button>
-						</PanelBody>
+						</div>
 					))}
-					<Button isPrimary onClick={addButton}>
-						Add Button
+					<Button isPrimary onClick={addButton} style={{ width: '100%' }}>
+						Add New Button
 					</Button>
 				</PanelBody>
 			</InspectorControls>

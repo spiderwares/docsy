@@ -1,17 +1,17 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "docsy/category-block",
+	"name": "docsy/cards-block",
 	"version": "0.1.0",
-	"title": "Category Block",
+	"title": "Card Block",
 	"category": "theme",
-	"icon": "category",
+	"icon": "card",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"supports": {
 		"html": false
 	},
-	"textdomain": "category-block",
+	"textdomain": "docsy",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
@@ -96,6 +96,31 @@
 		"cardBg": {
 			"type": "string",
 			"default": "#fff"
+		},
+		"cardContentAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"iconSize": {
+			"type": "number",
+			"default": 16
+		},
+		"iconRadius": {
+			"type": "number",
+			"default": 20
+		},
+		"articleCountColor": {
+			"type": "string",
+			"default": "#64748b"
+		},
+		"articleCountFontSize": {
+			"type": "number",
+			"default": 14
+		},
+		"articleCountBold": {
+			"type": "boolean",
+			"default": false
 		}
 	}
+
 }

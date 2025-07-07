@@ -21,5 +21,5 @@
  */
  
 /* eslint-disable no-console */
-console.log("Hello World! (from docsy-search-block block)");
+console.log("Hello World! (from docsy-hero-block block)");
 /* eslint-enable no-console */

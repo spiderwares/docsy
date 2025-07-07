@@ -21,5 +21,5 @@
  */
  
 /* eslint-disable no-console */
-console.log("Hello World! (from docsy-category-block block)");
+console.log("Hello World! (from docsy-cards-block block)");
 /* eslint-enable no-console */

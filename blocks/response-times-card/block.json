@@ -1,0 +1,86 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "docsy/response-times-card",
+	"version": "0.1.0",
+	"title": "Response Time Cards",
+	"category": "theme",
+	"icon": "clock",
+	"description": "Customizable response time cards block.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "docsy",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"cards": {
+  "type": "array",
+  "default": [
+    {
+      "value": "< 2 hours",
+      "label": "Urgent Issues",
+      "desc": "Critical bugs, security issues",
+      "color": "#e3342f",
+      "borderColor": "#e3342f",
+      "textColor": "#e3342f",
+      "bgColor": "#fff",
+      "valueSize": 24,
+      "labelSize": 16,
+      "descSize": 14
+    },
+    {
+      "value": "< 8 hours",
+      "label": "High Priority",
+      "desc": "Technical problems, billing issues",
+      "color": "#f6993f",
+      "borderColor": "#f6993f",
+      "textColor": "#f6993f",
+      "bgColor": "#fff",
+      "valueSize": 24,
+      "labelSize": 16,
+      "descSize": 14
+    },
+    {
+      "value": "< 24 hours",
+      "label": "Medium Priority",
+      "desc": "General questions, how-to",
+      "color": "#3490dc",
+      "borderColor": "#3490dc",
+      "textColor": "#3490dc",
+      "bgColor": "#fff",
+      "valueSize": 24,
+      "labelSize": 16,
+      "descSize": 14
+    },
+    {
+      "value": "< 48 hours",
+      "label": "Low Priority",
+      "desc": "Feature requests, suggestions",
+      "color": "#38c172",
+      "borderColor": "#38c172",
+      "textColor": "#38c172",
+      "bgColor": "#fff",
+      "valueSize": 24,
+      "labelSize": 16,
+      "descSize": 14
+    }
+  ]
+		},
+		"title": {
+			"type": "string",
+			"default": "Response Times"
+		},
+		"subtitle": {
+			"type": "string",
+			"default": "Here's what you can expect when contacting us"
+		},
+		"align": {
+			"type": "string",
+			"default": "center"
+		}
+	}
+}

@@ -1,11 +1,11 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "docsy/search-block",
+	"name": "docsy/footer",
 	"version": "0.1.0",
-	"title": "Search Block",
+	"title": "Footer",
 	"category": "theme",
-	"icon": "search",
+	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"supports": {
@@ -15,5 +15,19 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js"
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"logo": {
+			"type": "object",
+			"default": null
+		},
+		"repeater": {
+			"type": "array",
+			"default": []
+		},
+		"footerText": {
+			"type": "string",
+			"default": ""
+		}
+	}
 }

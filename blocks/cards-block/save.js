@@ -22,6 +22,12 @@ export default function save({ attributes }) {
 		subheading = 'Find the help you need organized by topic',
 		sectionBg = '#f8fafc',
 		cardBg = '#fff',
+		cardContentAlign = 'center',
+		iconSize = 22,
+		iconRadius = 10,
+		articleCountColor = '#64748b',
+		articleCountFontSize = 14,
+		articleCountBold = false,
 	} = attributes;
 	return (
 		<section {...useBlockProps.save()} style={{ background: sectionBg }}>
@@ -34,26 +40,45 @@ export default function save({ attributes }) {
 				{cards.map((card, idx) => (
 					<div
 						key={idx}
-						className="category-card"
+						className={`category-card align-item-${cardContentAlign}`}
 						style={{ background: cardBg }}
 					>
-						<div className={`icon-box ${card.color}`}>
+						<div
+							className={`icon-box ${card.color}`}
+							style={{
+								borderRadius: `${iconRadius}%`,
+								width: iconSize + 32,
+								height: iconSize + 32,
+								
+							}}
+						>
 							{card.iconUrl ? (
 								<img
 									src={card.iconUrl}
-									alt={__('Icon', 'category-block')}
-									style={{ width: 32, height: 32, objectFit: 'contain' }}
+									alt="Icon"
+									style={{ width: iconSize, height: iconSize, objectFit: 'contain' }}
 								/>
-							) : card.icon?.includes('<svg') ? (
-								<svg style={{ width: 22, height: 22, objectFit: 'contain' }} dangerouslySetInnerHTML={{ __html: card.icon }} />
 							) : (
-								<i className={`icon icon-${card.icon}`}></i>
+								<span
+									dangerouslySetInnerHTML={{ __html: card.icon }}
+									style={{ width: iconSize, height: iconSize, display: 'inline-block' }}
+								/>
 							)}
-
 						</div>
 						<h3>{card.title}</h3>
 						<p>{card.description}</p>
-						<span className="article-count">{card.articles}</span>
+						<span
+							className="article-count"
+							style={{
+								color: card.articleCountColor || articleCountColor,
+								fontSize: articleCountFontSize,
+								fontWeight: articleCountBold ? 'bold' : 'normal',
+								display: 'block',
+								marginTop: 8,
+							}}
+						>
+							{card.articles}
+						</span>
 					</div>
 				))}
 			</div>

@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-import { PanelBody, Button, TextControl } from '@wordpress/components';
+import { PanelBody, Button, TextControl, ButtonGroup } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
 
 /**
@@ -55,6 +55,22 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({ faqs: newFaqs });
 	};
 
+	// Move FAQ up
+	const moveFaqUp = (index) => {
+		if (index === 0) return; // Can't move first FAQ up
+		const newFaqs = [...faqs];
+		[newFaqs[index], newFaqs[index - 1]] = [newFaqs[index - 1], newFaqs[index]];
+		setAttributes({ faqs: newFaqs });
+	};
+
+	// Move FAQ down
+	const moveFaqDown = (index) => {
+		if (index === faqs.length - 1) return; // Can't move last FAQ down
+		const newFaqs = [...faqs];
+		[newFaqs[index], newFaqs[index + 1]] = [newFaqs[index + 1], newFaqs[index]];
+		setAttributes({ faqs: newFaqs });
+	};
+
 	return (
 		<Fragment>
 			<InspectorControls>
@@ -89,7 +105,50 @@ export default function Edit({ attributes, setAttributes }) {
 				/>
 				<PanelBody title={__('FAQ Items', 'docsy')} initialOpen={false}>
 					{faqs.map((faq, i) => (
-						<div id={`faq-${i}`} className="faq-item" key={i} style={{ marginBottom: '16px', borderBottom: '1px solid #eee', paddingBottom: '8px' }}>
+						<div key={i} style={{ 
+							border: '1px solid #ddd', 
+							borderRadius: '8px', 
+							marginBottom: '1rem', 
+							padding: '1rem',
+							backgroundColor: '#f9f9f9'
+						}}>
+							{/* FAQ Header with Controls */}
+							<div style={{ 
+								display: 'flex', 
+								justifyContent: 'space-between', 
+								alignItems: 'center', 
+								marginBottom: '1rem',
+								paddingBottom: '0.5rem',
+								borderBottom: '1px solid #eee'
+							}}>
+								<h4 style={{ margin: 0, fontSize: '14px', fontWeight: '600' }}>
+									{__('FAQ', 'docsy')} #{i + 1} - {faq.question || __('Untitled FAQ', 'docsy')}
+								</h4>
+								<ButtonGroup>
+									<Button
+										isSmall
+										icon="arrow-up-alt2"
+										label={__('Move FAQ Up', 'docsy')}
+										onClick={() => moveFaqUp(i)}
+										disabled={i === 0}
+									/>
+									<Button
+										isSmall
+										icon="arrow-down-alt2"
+										label={__('Move FAQ Down', 'docsy')}
+										onClick={() => moveFaqDown(i)}
+										disabled={i === (faqs.length - 1)}
+									/>
+									<Button
+										isSmall
+										isDestructive
+										icon="trash"
+										label={__('Remove FAQ', 'docsy')}
+										onClick={() => removeFaq(i)}
+									/>
+								</ButtonGroup>
+							</div>
+
 							<TextControl
 								label={__('Question', 'docsy')}
 								value={faq.question}
@@ -102,21 +161,14 @@ export default function Edit({ attributes, setAttributes }) {
 								onChange={(val) => updateFaq(i, 'answer', val)}
 								placeholder={__('Enter answer', 'docsy')}
 							/>
-							<Button
-								isDestructive
-								variant="secondary"
-								onClick={() => removeFaq(i)}
-								style={{ marginTop: '4px' }}
-							>
-								{__('Remove', 'docsy')}
-							</Button>
 						</div>
 					))}
 					<Button
 						variant="primary"
 						onClick={addFaq}
+						style={{ width: '100%' }}
 					>
-						{__('Add FAQ', 'docsy')}
+						{__('Add New FAQ', 'docsy')}
 					</Button>
 				</PanelBody>
 			</InspectorControls>

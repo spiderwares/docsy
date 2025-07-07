@@ -1,0 +1,50 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "docsy/support-hours-block",
+	"version": "0.1.0",
+	"title": "Support Hours Block",
+	"category": "theme",
+	"icon": "headphone",
+	"description": "Example block scaffolded with Create Block tool.",
+	"example": {},
+	"attributes": {
+		"title": { "type": "string", "default": "Support Hours" },
+		"subtitle": { "type": "string", "default": "Our support team is available during these hours" },
+		"cards": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Business Hours",
+					"rows": [
+						{"label": "Monday - Friday", "hours": "9:00 AM - 6:00 PM EST"},
+						{"label": "Saturday", "hours": "10:00 AM - 4:00 PM EST"},
+						{"label": "Sunday", "hours": "Closed"}
+					]
+				},
+				{
+					"title": "Emergency Support",
+					"rows": [
+						{"label": "Critical Issues", "hours": "24/7"},
+						{"label": "Security Issues", "hours": "24/7"},
+						{"label": "System Outages", "hours": "24/7"}
+					]
+				}
+			]
+		},
+		"backgroundColor": { "type": "string", "default": "#2563eb" },
+		"textColor": { "type": "string", "default": "#ffffff" }
+	},
+	"supports": {
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		}
+	},
+	"textdomain": "docsy",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

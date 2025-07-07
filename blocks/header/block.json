@@ -1,0 +1,55 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "docsy/header",
+	"version": "0.1.0",
+	"title": "Header",
+	"category": "theme",
+	"icon": "smiley",
+	"description": "Dynamic header block with customizable logo, title, and navigation menu.",
+	"example": {},
+	"attributes": {
+		"siteTitle": {
+			"type": "string",
+			"default": "Docsy"
+		},
+		"showLogo": {
+			"type": "boolean",
+			"default": true
+		},
+		"selectedMenuId": {
+			"type": "number",
+			"default": 0
+		},
+		"preferredMenuName": {
+			"type": "string",
+			"default": "Header"
+		},
+		"menuItems": {
+			"type": "array",
+			"default": [
+				{
+					"text": "Submit a request",
+					"url": "#"
+				},
+				{
+					"text": "Sign in",
+					"url": "#"
+				}
+			]
+		},
+		"logoUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "docsy",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

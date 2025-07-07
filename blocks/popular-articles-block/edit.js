@@ -28,6 +28,7 @@ import {
 	Button,
 	__experimentalInputControl as InputControl,
 	ColorPalette,
+	ButtonGroup,
 } from '@wordpress/components';
 
 /**
@@ -130,6 +131,22 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({ articles: newArticles });
 	};
 
+	// Move article up
+	const moveArticleUp = (index) => {
+		if (index === 0) return; // Can't move first article up
+		const newArticles = [...articles];
+		[newArticles[index], newArticles[index - 1]] = [newArticles[index - 1], newArticles[index]];
+		setAttributes({ articles: newArticles });
+	};
+
+	// Move article down
+	const moveArticleDown = (index) => {
+		if (index === articles.length - 1) return; // Can't move last article down
+		const newArticles = [...articles];
+		[newArticles[index], newArticles[index + 1]] = [newArticles[index + 1], newArticles[index]];
+		setAttributes({ articles: newArticles });
+	};
+
 	const iconSVG = (icon, iconColor) => {
 		const color = iconColor || 'currentColor';
 		switch (icon) {
@@ -169,7 +186,51 @@ export default function Edit({ attributes, setAttributes }) {
 			<InspectorControls>
 				<PanelBody title={__('Articles', 'popular-articles-block')} initialOpen={true}>
 					{articles.map((article, idx) => (
-						<div key={idx} style={{ marginBottom: '24px', borderBottom: '1px solid #eee', paddingBottom: '16px' }}>
+						<div key={idx} style={{ 
+							border: '1px solid #ddd', 
+							borderRadius: '8px', 
+							marginBottom: '1rem', 
+							padding: '1rem',
+							backgroundColor: '#f9f9f9'
+						}}>
+							{/* Article Header with Controls */}
+							<div style={{ 
+								display: 'flex', 
+								justifyContent: 'space-between', 
+								alignItems: 'center', 
+								marginBottom: '1rem',
+								paddingBottom: '0.5rem',
+								borderBottom: '1px solid #eee'
+							}}>
+								<h4 style={{ margin: 0, fontSize: '14px', fontWeight: '600' }}>
+									{__('Article', 'popular-articles-block')} #{idx + 1} - {article.title || __('Untitled Article', 'popular-articles-block')}
+								</h4>
+								<ButtonGroup>
+									<Button
+										isSmall
+										icon="arrow-up-alt2"
+										label={__('Move Article Up', 'popular-articles-block')}
+										onClick={() => moveArticleUp(idx)}
+										disabled={idx === 0}
+									/>
+									<Button
+										isSmall
+										icon="arrow-down-alt2"
+										label={__('Move Article Down', 'popular-articles-block')}
+										onClick={() => moveArticleDown(idx)}
+										disabled={idx === (articles.length - 1)}
+									/>
+									<Button
+										isSmall
+										isDestructive
+										icon="trash"
+										label={__('Remove Article', 'popular-articles-block')}
+										onClick={() => removeArticle(idx)}
+										disabled={articles.length <= 1}
+									/>
+								</ButtonGroup>
+							</div>
+
 							<TextControl
 								label={__('Title', 'popular-articles-block')}
 								value={article.title}
@@ -243,18 +304,10 @@ export default function Edit({ attributes, setAttributes }) {
 									</div>
 								)}
 							/>
-							<Button
-								isDestructive
-								onClick={() => removeArticle(idx)}
-								style={{ marginTop: '8px' }}
-								disabled={articles.length <= 1}
-							>
-								{__('Remove Article', 'popular-articles-block')}
-							</Button>
 						</div>
 					))}
-					<Button isPrimary onClick={addArticle}>
-						{__('Add Article', 'popular-articles-block')}
+					<Button isPrimary onClick={addArticle} style={{ width: '100%' }}>
+						{__('Add New Article', 'popular-articles-block')}
 					</Button>
 				</PanelBody>
 			</InspectorControls>

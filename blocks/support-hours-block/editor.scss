@@ -1,0 +1,60 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-docsy-support-hours-block {
+	border: 1px dotted #f00;
+	margin: 0;
+	padding: 0;
+	.support-hours-section {
+		padding-top: 4rem;
+		padding-bottom: 5rem;
+		background-color: #ffffff;
+	}
+	.support-hours-container {
+		max-width: 64rem;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.support-hours-card {
+		border-radius: 1rem;
+		padding: 2rem;
+		color: #ffffff;
+		text-align: center;
+	}
+	.support-hours-title {
+		font-size: 1.875rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+	.support-hours-subtitle {
+		font-size: 1.25rem;
+		color: #bfdbfe;
+		margin-bottom: 2rem;
+	}
+	.support-hours-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+	@media (min-width: 768px) {
+		.support-hours-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	.support-hours-heading {
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+	.support-hours-text {
+		color: #bfdbfe;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+}
