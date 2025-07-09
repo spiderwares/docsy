@@ -34,6 +34,38 @@
 					"iconBgColor": { "type": "string" }
 				}
 			}
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#21759b"
+		},
+		"titleColor": {
+			"type": "string",
+			"default": "#000"
+		},
+		"subtitleColor": {
+			"type": "string",
+			"default": "#4b5563"
+		},
+		"padding": {
+			"type": "string",
+			"default": "2rem 1rem"
+		},
+		"borderRadius": {
+			"type": "string",
+			"default": "0px"
+		},
+		"boxShadow": {
+			"type": "string",
+			"default": "none"
+		},
+		"textAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"cardGap": {
+			"type": "string",
+			"default": "2rem"
 		}
 	}
 }

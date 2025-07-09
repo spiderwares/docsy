@@ -49,6 +49,42 @@
 		"headerSubtitle": {
 			"type": "string",
 			"default": "Quick answers to common questions"
+		},
+		"headerTitleColor": {
+			"type": "string",
+			"default": "#111827"
+		},
+		"headerSubtitleColor": {
+			"type": "string",
+			"default": "#4B5563"
+		},
+		"padding": {
+			"type": "string",
+			"default": "2rem 1rem"
+		},
+		"borderRadius": {
+			"type": "string",
+			"default": "0px"
+		},
+		"boxShadow": {
+			"type": "string",
+			"default": "none"
+		},
+		"textAlign": {
+			"type": "string",
+			"default": "left"
+		},
+		"questionColor": {
+			"type": "string",
+			"default": "#111827"
+		},
+		"answerColor": {
+			"type": "string",
+			"default": "#4B5563"
+		},
+		"gap": {
+			"type": "string",
+			"default": "1.5rem"
 		}
 	}
 }

@@ -20,23 +20,45 @@ export default function save({ attributes }) {
 		cards = [],
 		title = 'Response Times',
 		subtitle = "Here's what you can expect when contacting us",
-		align = 'center',
+		backgroundColor = '#fff',
+		titleColor = '#111827',
+		subtitleColor = '#666',
+		padding = '32px 0',
+		borderRadius = '12px',
+		boxShadow = '0 2px 8px rgba(0,0,0,0.04)',
+		textAlign = 'center',
+		cardGap = '24px',
+		valueFontSize = 30,
+		labelFontSize = 16,
+		descFontSize = 14,
 	} = attributes;
 
+	const blockStyle = {
+		'--rtc-bg': backgroundColor,
+		'--rtc-title': titleColor,
+		'--rtc-subtitle': subtitleColor,
+		'--rtc-padding': padding,
+		'--rtc-radius': borderRadius,
+		'--rtc-shadow': boxShadow,
+		'--rtc-align': textAlign,
+		'--rtc-card-gap': cardGap,
+	};
+
 	return (
-		<section className="response-time-section">
+		<section {...useBlockProps.save({ style: blockStyle })}>
 			<div className="response-time-container">
-				<div className="response-time-header" style={{ textAlign: align }}>
-					<h2 className="response-time-title">{title}</h2>
-					<p className="response-time-subtitle">{subtitle}</p>
+				<div className="response-time-header" style={{ textAlign: textAlign }}>
+					<h2 className="response-time-title" style={{ color: 'var(--rtc-title)' }}>{title}</h2>
+					<p className="response-time-subtitle" style={{ color: 'var(--rtc-subtitle)' }}>{subtitle}</p>
 				</div>
 				<div
 					className="response-time-grid"
 					style={{
+						gap: 'var(--rtc-card-gap)',
 						justifyContent:
-							align === 'center'
+							textAlign === 'center'
 								? 'center'
-								: align === 'right'
+								: textAlign === 'right'
 								? 'flex-end'
 								: 'flex-start',
 					}}
@@ -49,14 +71,16 @@ export default function save({ attributes }) {
 								borderLeft: `4px solid ${card.borderColor}`,
 								background: card.bgColor,
 								color: card.textColor,
-								textAlign: align,
+								textAlign: textAlign,
+								borderRadius: 'var(--rtc-radius)',
+								boxShadow: 'var(--rtc-shadow)',
 							}}
 						>
 							<div
 								className="response-time-value"
 								style={{
 									color: card.textColor,
-									fontSize: card.valueSize,
+									fontSize: valueFontSize,
 									fontWeight: 'bold',
 								}}
 							>
@@ -65,8 +89,7 @@ export default function save({ attributes }) {
 							<div
 								className="response-time-label"
 								style={{
-									fontSize: card.labelSize,
-									fontWeight: 600,
+									fontSize: labelFontSize,
 								}}
 							>
 								{card.label}
@@ -74,7 +97,7 @@ export default function save({ attributes }) {
 							<div
 								className="response-time-desc"
 								style={{
-									fontSize: card.descSize,
+									fontSize: descFontSize,
 								}}
 							>
 								{card.desc}

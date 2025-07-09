@@ -16,36 +16,10 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save({ attributes }) {
-	const articles = attributes?.articles || [
-		{
-			title: 'How to get started with your first booking',
-			description: 'Learn the essential steps to create your first booking and configure basic settings.',
-			meta: 'Updated 2 days ago',
-			icon: 'play',
-			color: 'green',
-		},
-		{
-			title: 'Setting up availability and time slots',
-			description: 'Configure your available hours, time slots, and booking restrictions.',
-			meta: 'Updated 1 week ago',
-			icon: 'calendar',
-			color: 'blue',
-		},
-		{
-			title: 'Customizing the booking form appearance',
-			description: 'Style your booking forms to match your brand and website design.',
-			meta: 'Updated 3 days ago',
-			icon: 'palette',
-			color: 'purple',
-		},
-		{
-			title: 'Email notifications and confirmations',
-			description: 'Set up automated emails for bookings, confirmations, and reminders.',
-			meta: 'Updated 5 days ago',
-			icon: 'envelope',
-			color: 'orange',
-		},
-	];
+	const {
+		articles = [],
+		backgroundColor, titleColor, subtitleColor, padding, borderRadius, boxShadow, textAlign, cardGap, gridColumns
+	} = attributes || {};
 
 	const iconSVG = (icon, iconColor) => {
 		const color = iconColor || 'currentColor';
@@ -71,15 +45,26 @@ export default function save({ attributes }) {
 		}
 	};
 
+	const blockStyle = {
+		'--popular-bg': backgroundColor,
+		'--popular-title-color': titleColor,
+		'--popular-subtitle-color': subtitleColor,
+		'--popular-padding': padding,
+		'--popular-radius': borderRadius,
+		'--popular-shadow': boxShadow,
+		'--popular-align': textAlign,
+		'--popular-card-gap': cardGap,
+	};
+
 	return (
-		<section id="popular-articles" className="popular-articles" {...useBlockProps.save()}>
+		<section id="popular-articles" className="popular-articles" {...useBlockProps.save({ style: blockStyle })}>
 			<div className="popular-container">
 				<div className="section-header">
-					<h2 className="section-title">Popular Articles</h2>
-					<p className="section-subtitle">Most viewed articles this week</p>
+					<h2 className="section-title" style={{ color: 'var(--popular-title-color)' }}>Popular Articles</h2>
+					<p className="section-subtitle" style={{ color: 'var(--popular-subtitle-color)' }}>Most viewed articles this week</p>
 				</div>
-				<div className="articles-grid">
-					{articles.map((article, idx) => (
+				<div className="articles-grid" style={{ gap: 'var(--popular-card-gap)' }}>
+				{articles.map((article, idx) => (
 						<div
 							key={idx}
 							id={`article-${idx + 1}`}

@@ -23,3 +23,31 @@
 /* eslint-disable no-console */
 console.log("Hello World! (from docsy-need-help-block block)");
 /* eslint-enable no-console */
+
+document.addEventListener('DOMContentLoaded', function () {
+	const block = document.querySelectorAll('.wp-block-docsy-need-help-block');
+	block.forEach(section => {
+		const buttons = section.querySelectorAll('a');
+		buttons.forEach(btn => {
+			const bg = btn.style.background;
+			const color = btn.style.color;
+			const border = btn.style.border;
+			const hoverBg = btn.getAttribute('data-hover-bg');
+			const hoverColor = btn.getAttribute('data-hover-color');
+			const hoverBorder = btn.getAttribute('data-hover-border');
+
+			if (hoverBg || hoverColor || hoverBorder) {
+				btn.addEventListener('mouseenter', function () {
+					if (hoverBg) btn.style.background = hoverBg;
+					if (hoverColor) btn.style.color = hoverColor;
+					if (hoverBorder) btn.style.border = hoverBorder;
+				});
+				btn.addEventListener('mouseleave', function () {
+					btn.style.background = bg;
+					btn.style.color = color;
+					btn.style.border = border;
+				});
+			}
+		});
+	});
+});

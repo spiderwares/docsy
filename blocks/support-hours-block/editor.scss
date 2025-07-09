@@ -5,9 +5,7 @@
  */
 
 .wp-block-docsy-support-hours-block {
-	border: 1px dotted #f00;
-	margin: 0;
-	padding: 0;
+	// Editor-specific tweaks (if any) can go here, but no hardcoded border or background.
 	.support-hours-section {
 		padding-top: 4rem;
 		padding-bottom: 5rem;
@@ -36,16 +34,8 @@
 		color: #bfdbfe;
 		margin-bottom: 2rem;
 	}
-	.support-hours-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 2rem;
-	}
-	@media (min-width: 768px) {
-		.support-hours-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
+
+
 	.support-hours-heading {
 		font-size: 1.25rem;
 		font-weight: 600;

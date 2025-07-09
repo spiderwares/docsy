@@ -20,15 +20,27 @@ export default function save({ attributes }) {
 		title = '',
 		subtitle = '',
 		placeholder = '',
-		showSearch = true // default to true for backward compatibility
+		showSearch = true, // default to true for backward compatibility
+		backgroundColor, titleColor, subtitleColor, padding, borderRadius, boxShadow, textAlign, searchInputBg
 	} = attributes || {};
 
 	const defaultTitle = 'How can we help you?';
 	const defaultSubtitle = 'Search our knowledge base for answers';
 	const defaultPlaceholder = 'Search for articles...';
 
+	const heroStyle = {
+		'--hero-bg': backgroundColor,
+		'--hero-title-color': titleColor,
+		'--hero-subtitle-color': subtitleColor,
+		'--hero-padding': padding,
+		'--hero-radius': borderRadius,
+		'--hero-shadow': boxShadow,
+		'--hero-align': textAlign,
+		'--hero-search-bg': searchInputBg,
+	};
+
 	return (
-		<section id="hero-search" className="hero-search" {...useBlockProps.save()}>
+		<section id="hero-search" className="hero-search" {...useBlockProps.save({ style: heroStyle })}>
 			<div className="container text-center">
 				<RichText.Content
 					tagName="h1"
@@ -47,6 +59,7 @@ export default function save({ attributes }) {
 								type="text"
 								placeholder={placeholder || defaultPlaceholder}
 								className="search-input"
+								style={{ background: 'var(--hero-search-bg)' }}
 							/>
 							<button className="search-button">
 								<svg

@@ -5,8 +5,24 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-docsy-hero-block {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.wp-block-docsy-hero-block,
+.hero-search {
+	background-color: var(--hero-bg, #21759b);
+	color: var(--hero-title-color, #fff);
+	padding: var(--hero-padding, 2px);
+	border-radius: var(--hero-radius, 0px);
+	box-shadow: var(--hero-shadow, none);
+	text-align: var(--hero-align, center);
+}
+
+.hero-title {
+	color: var(--hero-title-color, #fff);
+}
+
+.hero-subtitle {
+	color: var(--hero-subtitle-color, #c7d2fe);
+}
+
+.search-input {
+	background: var(--hero-search-bg, #fff);
 }

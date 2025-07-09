@@ -22,21 +22,43 @@ export default function save({ attributes }) {
 		backgroundColor,
 		headerTitle = 'Frequently Asked Questions',
 		headerSubtitle = 'Quick answers to common questions',
+		headerTitleColor,
+		headerSubtitleColor,
+		padding,
+		borderRadius,
+		boxShadow,
+		textAlign,
+		questionColor,
+		answerColor,
+		gap
 	} = attributes;
+	const blockStyle = {
+		'--faq-bg': backgroundColor,
+		'--faq-text': textColor,
+		'--faq-header-title': headerTitleColor,
+		'--faq-header-subtitle': headerSubtitleColor,
+		'--faq-padding': padding,
+		'--faq-radius': borderRadius,
+		'--faq-shadow': boxShadow,
+		'--faq-align': textAlign,
+		'--faq-question': questionColor,
+		'--faq-answer': answerColor,
+		'--faq-gap': gap,
+	};
 	return (
 		<section
 			id="faq-section"
-			style={{ backgroundColor, color: textColor, padding: '16px' }}
+			style={blockStyle}
 		>
 			<div className="faq-container">
 				<div className="faq-header">
-					<h2>{headerTitle}</h2>
-					<p>{headerSubtitle}</p>
+					<h2 style={{ color: 'var(--faq-header-title)' }}>{headerTitle}</h2>
+					<p style={{ color: 'var(--faq-header-subtitle)' }}>{headerSubtitle}</p>
 				</div>
-				<div className="faq-list">
+				<div className="faq-list" style={{ gap: 'var(--faq-gap)' }}>
 					{faqs.map((faq, i) => (
 						<div id={`faq-${i}`} className="faq-item" key={i}>
-							<button type="button">
+							<button type="button" style={{ width: '100%', textAlign: 'left', color: 'var(--faq-question)' }}>
 								<span>{faq.question}</span>
 								<i className="faq-icon">
 									<svg
@@ -45,11 +67,11 @@ export default function save({ attributes }) {
 										viewBox="0 0 448 512"
 										style={{ transition: 'transform 0.2s' }}
 									>
-										<path fill="currentColor" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
-									</svg>
-								</i>
+											<path fill="currentColor" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
+										</svg>
+									</i>
 							</button>
-							<div className="faq-content">
+							<div className="faq-content" style={{ color: 'var(--faq-answer)' }}>
 								<p>{faq.answer}</p>
 							</div>
 						</div>

@@ -16,16 +16,30 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save({ attributes }) {
-	const { title, subtitle, cards, backgroundColor, textColor } = attributes;
+	const { title, subtitle, cards, backgroundColor, cardBackgroundColor, textColor, titleColor, subtitleColor, padding, borderRadius, boxShadow, textAlign, cardGap } = attributes;
+
+	const blockStyle = {
+		'--sh-bg': backgroundColor,
+		'--sh-card-bg': cardBackgroundColor,
+		'--sh-text': textColor,
+		'--sh-title': titleColor,
+		'--sh-subtitle': subtitleColor,
+		'--sh-padding': padding,
+		'--sh-radius': borderRadius,
+		'--sh-shadow': boxShadow,
+		'--sh-align': textAlign,
+		'--sh-card-gap': cardGap,
+	};
+
 	return (
-		<section id="support-hours" className="support-hours-section" {...useBlockProps.save()}>
+		<section id="support-hours" {...useBlockProps.save({ style: blockStyle })}>
 			<div className="support-hours-container">
-				<div className="support-hours-card" style={{ background: backgroundColor, color: textColor }}>
-					<h2 className="support-hours-title">{title}</h2>
-					<p className="support-hours-subtitle">{subtitle}</p>
-					<div className="support-hours-grid">
+				<div className="support-hours-card">
+					<h2 className="support-hours-title" style={{ color: 'var(--sh-title)' }}>{title}</h2>
+					<p className="support-hours-subtitle" style={{ color: 'var(--sh-subtitle)' }}>{subtitle}</p>
+					<div className="support-hours-grid" style={{ gap: 'var(--sh-card-gap)', textAlign: textAlign }}>
 						{cards && cards.map((card, cardIdx) => (
-							<div key={cardIdx} id={card.title ? card.title.toLowerCase().replace(/\s+/g, '-') : undefined}>
+							<div key={cardIdx} id={card.title ? card.title.toLowerCase().replace(/\s+/g, '-') : undefined} style={{ background: 'var(--sh-card-bg)', color: 'var(--sh-text)', borderRadius: 'var(--sh-radius)', boxShadow: 'var(--sh-shadow)' }}>
 								<h3 className="support-hours-heading">{card.title}</h3>
 								<div className="support-hours-text">
 									{card.rows && card.rows.map((row, rowIdx) => (

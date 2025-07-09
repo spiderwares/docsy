@@ -32,6 +32,38 @@
 		"placeholder": {
 			"type": "string",
 			"default": "Search for articles..."
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#1d4ed8"
+		},
+		"titleColor": {
+			"type": "string",
+			"default": "#fff"
+		},
+		"subtitleColor": {
+			"type": "string",
+			"default": "#c7d2fe"
+		},
+		"padding": {
+			"type": "string",
+			"default": "4rem 1rem"
+		},
+		"borderRadius": {
+			"type": "string",
+			"default": "0px"
+		},
+		"boxShadow": {
+			"type": "string",
+			"default": "none"
+		},
+		"textAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"searchInputBg": {
+			"type": "string",
+			"default": "#fff"
 		}
 	}
 }

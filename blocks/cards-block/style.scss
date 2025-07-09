@@ -6,7 +6,33 @@
  */
 
 .wp-block-docsy-cards-block {
-	background-color: #21759b;
+	background-color: var(--section-bg, #21759b);
 	color: #fff;
 	padding: 2px;
+
+	.category-card {
+		background: var(--card-bg, #fff);
+		text-align: var(--card-content-align, center);
+	}
+
+	.icon-box {
+		border-radius: var(--icon-radius, 20%);
+		width: calc(var(--icon-size, 16px) + 32px);
+		height: calc(var(--icon-size, 16px) + 32px);
+	}
+
+	.icon-box img,
+	.icon-box span {
+		width: var(--icon-size, 16px);
+		height: var(--icon-size, 16px);
+		display: inline-block;
+	}
+
+	.article-count {
+		color: var(--article-count-color, #64748b);
+		font-size: var(--article-count-font-size, 14px);
+		font-weight: var(--article-count-bold, normal);
+		display: block;
+		margin-top: 8px;
+	}
 }

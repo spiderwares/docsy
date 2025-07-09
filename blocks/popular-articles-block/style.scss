@@ -10,3 +10,25 @@
 	color: #fff;
 	padding: 2px;
 }
+
+.popular-articles {
+	background-color: var(--popular-bg, #21759b);
+	color: var(--popular-title-color, #fff);
+	padding: var(--popular-padding, 2px);
+	border-radius: var(--popular-radius, 0px);
+	box-shadow: var(--popular-shadow, none);
+	text-align: var(--popular-align, center);
+}
+
+.section-title {
+	color: var(--popular-title-color, #fff);
+}
+
+.section-subtitle {
+	color: var(--popular-subtitle-color, #fff);
+}
+
+.articles-grid {
+	display: grid;
+	// gap and grid-template-columns removed for theme CSS to take over
+}

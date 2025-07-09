@@ -8,6 +8,11 @@
 	"icon": "headphone",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
+	"textdomain": "docsy",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
 	"attributes": {
 		"title": { "type": "string", "default": "Support Hours" },
 		"subtitle": { "type": "string", "default": "Our support team is available during these hours" },
@@ -32,8 +37,16 @@
 				}
 			]
 		},
-		"backgroundColor": { "type": "string", "default": "#2563eb" },
-		"textColor": { "type": "string", "default": "#ffffff" }
+		"backgroundColor": { "type": "string", "default": "" },
+		"cardBackgroundColor": { "type": "string", "default": "" },
+		"textColor": { "type": "string", "default": "#ffffff" },
+		"titleColor": { "type": "string", "default": "#ffffff" },
+		"subtitleColor": { "type": "string", "default": "#bfdbfe" },
+		"padding": { "type": "string", "default": "" },
+		"borderRadius": { "type": "string", "default": "" },
+		"boxShadow": { "type": "string", "default": "none" },
+		"textAlign": { "type": "string", "default": "center" },
+		"cardGap": { "type": "string", "default": "" }
 	},
 	"supports": {
 		"html": false,
@@ -41,10 +54,5 @@
 			"background": true,
 			"text": true
 		}
-	},
-	"textdomain": "docsy",
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js"
+	}
 }

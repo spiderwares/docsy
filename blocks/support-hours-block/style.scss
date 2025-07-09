@@ -6,7 +6,54 @@
  */
 
 .wp-block-docsy-support-hours-block {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+	background-color: var(--sh-bg, #2563eb);
+	padding: var(--sh-padding, 4rem 0 5rem 0);
+}
+
+.support-hours-card {
+	background: var(--sh-card-bg, #fff);
+	color: var(--sh-text, #fff);
+	border-radius: var(--sh-radius, 1rem);
+	box-shadow: var(--sh-shadow, none);
+	text-align: var(--sh-align, center);
+	padding: 2rem;
+}
+.support-hours-title {
+	font-size: 1.875rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+	color: var(--sh-title, #fff);
+}
+.support-hours-subtitle {
+	font-size: 1.25rem;
+	color: var(--sh-subtitle, #bfdbfe);
+	margin-bottom: 2rem;
+}
+.support-hours-grid {
+	display: flex;
+	gap: var(--sh-card-gap, 2rem);
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: var(--sh-align, center);
+}
+.support-hours-grid > div {
+	background: var(--sh-card-bg, #fff);
+	color: var(--sh-text, #fff);
+	border-radius: var(--sh-radius, 1rem);
+	box-shadow: var(--sh-shadow, none);
+	padding: 1.5rem 1rem;
+	min-width: 180px;
+	flex: 1 1 180px;
+	margin-bottom: 0;
+}
+.support-hours-heading {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+.support-hours-text {
+	color: var(--sh-subtitle, #bfdbfe);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }

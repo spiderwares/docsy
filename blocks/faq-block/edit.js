@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-import { PanelBody, Button, TextControl, ButtonGroup } from '@wordpress/components';
+import { PanelBody, Button, TextControl, ButtonGroup, TabPanel, ColorPalette, SelectControl } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
 
 /**
@@ -36,9 +36,41 @@ export default function Edit({ attributes, setAttributes }) {
 		faqs = [],
 		textColor,
 		backgroundColor,
-		headerTitle = __('Frequently Asked Questions', 'docsy'),
-		headerSubtitle = __('Quick answers to common questions', 'docsy'),
+		headerTitle,
+		headerSubtitle,
+		headerTitleColor,
+		headerSubtitleColor,
+		padding,
+		borderRadius,
+		boxShadow,
+		textAlign,
+		questionColor,
+		answerColor,
+		gap
 	} = attributes;
+
+	const stylePresets = [
+		{ name: 'Black', color: '#111827' },
+		{ name: 'Gray', color: '#4B5563' },
+		{ name: 'White', color: '#fff' },
+		{ name: 'Blue', color: '#2563EB' },
+		{ name: 'Purple', color: '#7C3AED' },
+		{ name: 'Green', color: '#059669' },
+	];
+
+	const blockStyle = {
+		'--faq-bg': backgroundColor,
+		'--faq-text': textColor,
+		'--faq-header-title': headerTitleColor,
+		'--faq-header-subtitle': headerSubtitleColor,
+		'--faq-padding': padding,
+		'--faq-radius': borderRadius,
+		'--faq-shadow': boxShadow,
+		'--faq-align': textAlign,
+		'--faq-question': questionColor,
+		'--faq-answer': answerColor,
+		'--faq-gap': gap,
+	};
 
 	const updateFaq = (index, field, value) => {
 		const newFaqs = [...faqs];
@@ -74,118 +106,190 @@ export default function Edit({ attributes, setAttributes }) {
 	return (
 		<Fragment>
 			<InspectorControls>
-				<PanelBody title={__('Header', 'docsy')} initialOpen={true}>
-					<TextControl
-						label={__('Header Title', 'docsy')}
-						value={headerTitle}
-						onChange={(val) => setAttributes({ headerTitle: val })}
-						placeholder={__('Frequently Asked Questions', 'docsy')}
-					/>
-					<TextControl
-						label={__('Header Subtitle', 'docsy')}
-						value={headerSubtitle}
-						onChange={(val) => setAttributes({ headerSubtitle: val })}
-						placeholder={__('Quick answers to common questions', 'docsy')}
-					/>
-				</PanelBody>
-				<PanelColorSettings
-					title={__('Color settings', 'docsy')}
-					colorSettings={[
-						{
-							value: textColor,
-							onChange: (color) => setAttributes({ textColor: color }),
-							label: __('Text color', 'docsy'),
-						},
-						{
-							value: backgroundColor,
-							onChange: (color) => setAttributes({ backgroundColor: color }),
-							label: __('Background color', 'docsy'),
-						},
+				<TabPanel
+					tabs={[
+						{ name: 'content', title: __('Content', 'docsy') },
+						{ name: 'style', title: __('Style', 'docsy') },
 					]}
-				/>
-				<PanelBody title={__('FAQ Items', 'docsy')} initialOpen={false}>
-					{faqs.map((faq, i) => (
-						<div key={i} style={{ 
-							border: '1px solid #ddd', 
-							borderRadius: '8px', 
-							marginBottom: '1rem', 
-							padding: '1rem',
-							backgroundColor: '#f9f9f9'
-						}}>
-							{/* FAQ Header with Controls */}
-							<div style={{ 
-								display: 'flex', 
-								justifyContent: 'space-between', 
-								alignItems: 'center', 
-								marginBottom: '1rem',
-								paddingBottom: '0.5rem',
-								borderBottom: '1px solid #eee'
-							}}>
-								<h4 style={{ margin: 0, fontSize: '14px', fontWeight: '600' }}>
-									{__('FAQ', 'docsy')} #{i + 1} - {faq.question || __('Untitled FAQ', 'docsy')}
-								</h4>
-								<ButtonGroup>
-									<Button
-										isSmall
-										icon="arrow-up-alt2"
-										label={__('Move FAQ Up', 'docsy')}
-										onClick={() => moveFaqUp(i)}
-										disabled={i === 0}
-									/>
-									<Button
-										isSmall
-										icon="arrow-down-alt2"
-										label={__('Move FAQ Down', 'docsy')}
-										onClick={() => moveFaqDown(i)}
-										disabled={i === (faqs.length - 1)}
-									/>
-									<Button
-										isSmall
-										isDestructive
-										icon="trash"
-										label={__('Remove FAQ', 'docsy')}
-										onClick={() => removeFaq(i)}
-									/>
-								</ButtonGroup>
-							</div>
-
-							<TextControl
-								label={__('Question', 'docsy')}
-								value={faq.question}
-								onChange={(val) => updateFaq(i, 'question', val)}
-								placeholder={__('Enter question', 'docsy')}
-							/>
-							<TextControl
-								label={__('Answer', 'docsy')}
-								value={faq.answer}
-								onChange={(val) => updateFaq(i, 'answer', val)}
-								placeholder={__('Enter answer', 'docsy')}
-							/>
-						</div>
-					))}
-					<Button
-						variant="primary"
-						onClick={addFaq}
-						style={{ width: '100%' }}
-					>
-						{__('Add New FAQ', 'docsy')}
-					</Button>
-				</PanelBody>
+				>
+					{(tab) => (
+						<>
+							{tab.name === 'content' && (
+								<>
+									<PanelBody title={__('Header', 'docsy')} initialOpen={true}>
+										<TextControl
+											label={__('Header Title', 'docsy')}
+											value={headerTitle}
+											onChange={(val) => setAttributes({ headerTitle: val })}
+											placeholder={__('Frequently Asked Questions', 'docsy')}
+										/>
+										<TextControl
+											label={__('Header Subtitle', 'docsy')}
+											value={headerSubtitle}
+											onChange={(val) => setAttributes({ headerSubtitle: val })}
+											placeholder={__('Quick answers to common questions', 'docsy')}
+										/>
+									</PanelBody>
+									<PanelBody title={__('FAQ Items', 'docsy')} initialOpen={false}>
+										{faqs.map((faq, i) => (
+											<div key={i} style={{ 
+												border: '1px solid #ddd', 
+												borderRadius: '8px', 
+												marginBottom: '1rem', 
+												padding: '1rem',
+												backgroundColor: '#f9f9f9'
+											}}>
+												{/* FAQ Header with Controls */}
+												<div style={{ 
+													display: 'flex', 
+													justifyContent: 'space-between', 
+													alignItems: 'center', 
+													marginBottom: '1rem',
+													paddingBottom: '0.5rem',
+													borderBottom: '1px solid #eee'
+												}}>
+													<h4 style={{ margin: 0, fontSize: '14px', fontWeight: '600' }}>
+														{__('FAQ', 'docsy')} #{i + 1} - {faq.question || __('Untitled FAQ', 'docsy')}
+													</h4>
+													<ButtonGroup>
+														<Button
+															isSmall
+															icon="arrow-up-alt2"
+															label={__('Move FAQ Up', 'docsy')}
+															onClick={() => moveFaqUp(i)}
+															disabled={i === 0}
+														/>
+														<Button
+															isSmall
+															icon="arrow-down-alt2"
+															label={__('Move FAQ Down', 'docsy')}
+															onClick={() => moveFaqDown(i)}
+															disabled={i === (faqs.length - 1)}
+														/>
+														<Button
+															isSmall
+															isDestructive
+															icon="trash"
+															label={__('Remove FAQ', 'docsy')}
+															onClick={() => removeFaq(i)}
+														/>
+													</ButtonGroup>
+												</div>
+												<TextControl
+													label={__('Question', 'docsy')}
+													value={faq.question}
+													onChange={(val) => updateFaq(i, 'question', val)}
+													placeholder={__('Enter question', 'docsy')}
+												/>
+												<TextControl
+													label={__('Answer', 'docsy')}
+													value={faq.answer}
+													onChange={(val) => updateFaq(i, 'answer', val)}
+													placeholder={__('Enter answer', 'docsy')}
+												/>
+											</div>
+										))}
+										<Button
+											variant="primary"
+											onClick={addFaq}
+											style={{ width: '100%' }}
+										>
+											{__('Add New FAQ', 'docsy')}
+										</Button>
+									</PanelBody>
+								</>
+							)}
+							{tab.name === 'style' && (
+								<>
+									<PanelBody title={__('Block Style', 'docsy')} initialOpen={true}>
+										<ColorPalette
+											colors={stylePresets}
+											value={backgroundColor}
+											onChange={(color) => setAttributes({ backgroundColor: color })}
+										/>
+										<ColorPalette
+											colors={stylePresets}
+											value={textColor}
+											onChange={(color) => setAttributes({ textColor: color })}
+										/>
+										<TextControl
+											label={__('Padding', 'docsy')}
+											value={padding}
+											onChange={(value) => setAttributes({ padding: value })}
+											placeholder="2rem 1rem"
+										/>
+										<TextControl
+											label={__('Border Radius', 'docsy')}
+											value={borderRadius}
+											onChange={(value) => setAttributes({ borderRadius: value })}
+											placeholder="0px"
+										/>
+										<TextControl
+											label={__('Box Shadow', 'docsy')}
+											value={boxShadow}
+											onChange={(value) => setAttributes({ boxShadow: value })}
+											placeholder="none"
+										/>
+										<SelectControl
+											label={__('Text Align', 'docsy')}
+											value={textAlign}
+											onChange={(value) => setAttributes({ textAlign: value })}
+											options={[
+												{ label: __('Left', 'docsy'), value: 'left' },
+												{ label: __('Center', 'docsy'), value: 'center' },
+												{ label: __('Right', 'docsy'), value: 'right' },
+											]}
+										/>
+										<TextControl
+											label={__('Gap between FAQs', 'docsy')}
+											value={gap}
+											onChange={(value) => setAttributes({ gap: value })}
+											placeholder="1.5rem"
+										/>
+									</PanelBody>
+									<PanelBody title={__('Header Style', 'docsy')} initialOpen={false}>
+										<ColorPalette
+											colors={stylePresets}
+											value={headerTitleColor}
+											onChange={(color) => setAttributes({ headerTitleColor: color })}
+										/>
+										<ColorPalette
+											colors={stylePresets}
+											value={headerSubtitleColor}
+											onChange={(color) => setAttributes({ headerSubtitleColor: color })}
+										/>
+									</PanelBody>
+									<PanelBody title={__('FAQ Item Style', 'docsy')} initialOpen={false}>
+										<ColorPalette
+											colors={stylePresets}
+											value={questionColor}
+											onChange={(color) => setAttributes({ questionColor: color })}
+										/>
+										<ColorPalette
+											colors={stylePresets}
+											value={answerColor}
+											onChange={(color) => setAttributes({ answerColor: color })}
+										/>
+									</PanelBody>
+								</>
+							)}
+						</>
+					)}
+				</TabPanel>
 			</InspectorControls>
 			<section
-				{ ...useBlockProps() }
+				{ ...useBlockProps({ style: blockStyle }) }
 				id="faq-section"
-				style={{ backgroundColor, color: textColor, padding: '16px' }}
 			>
 				<div className="faq-container">
 					<div className="faq-header">
-						<h2>{headerTitle}</h2>
-						<p>{headerSubtitle}</p>
+						<h2 style={{ color: 'var(--faq-header-title)' }}>{headerTitle}</h2>
+						<p style={{ color: 'var(--faq-header-subtitle)' }}>{headerSubtitle}</p>
 					</div>
-					<div className="faq-list">
+					<div className="faq-list" style={{ gap: 'var(--faq-gap)' }}>
 						{faqs.map((faq, i) => (
 							<div id={`faq-${i}`} className="faq-item" key={i}>
-								<button type="button" disabled style={{ width: '100%', textAlign: 'left' }}>
+								<button type="button" disabled style={{ width: '100%', textAlign: 'left', color: 'var(--faq-question)' }}>
 									<span>{faq.question || __('Question', 'docsy')}</span>
 									<i className="faq-icon" style={{ marginLeft: '8px' }}>
 										<svg
@@ -198,7 +302,7 @@ export default function Edit({ attributes, setAttributes }) {
 										</svg>
 									</i>
 								</button>
-								<div className="faq-content">
+								<div className="faq-content" style={{ color: 'var(--faq-answer)' }}>
 									<p>{faq.answer || __('Answer', 'docsy')}</p>
 								</div>
 							</div>

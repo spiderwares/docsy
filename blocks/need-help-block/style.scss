@@ -6,8 +6,11 @@
  */
 
 .wp-block-docsy-need-help-block {
-	background-color: #f9fafb;
-	padding: 4rem 0;
+	background-color: var(--nh-bg, #f9fafb);
+	padding: var(--nh-padding, 4rem 0);
+	border-radius: var(--nh-radius, 0px);
+	box-shadow: var(--nh-shadow, none);
+	text-align: var(--nh-align, center);
 
 	.text-center {
 		text-align: center;
@@ -23,5 +26,14 @@
 		transition: all 0.2s;
 		cursor: pointer;
 		text-decoration: none;
+		border-radius: var(--nh-button-radius, 0.5rem);
+	}
+
+	> div > div {
+		display: flex;
+		flex-direction: row;
+		gap: var(--nh-button-gap, 1rem);
+		justify-content: center;
+		flex-wrap: wrap;
 	}
 }

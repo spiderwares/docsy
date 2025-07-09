@@ -29,6 +29,9 @@ import {
 	__experimentalInputControl as InputControl,
 	ColorPalette,
 	ButtonGroup,
+	TabPanel,
+	RangeControl,
+	SelectControl
 } from '@wordpress/components';
 
 /**
@@ -40,6 +43,11 @@ import {
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+	const {
+		articles: attrArticles,
+		backgroundColor, titleColor, subtitleColor, padding, borderRadius, boxShadow, textAlign, cardGap
+	} = attributes;
+
 	const defaultArticles = [
 		{
 			title: 'How to get started with your first booking',
@@ -89,7 +97,7 @@ export default function Edit({ attributes, setAttributes }) {
 
 	// Initialize articles with default data if empty (first time block is added)
 	useEffect(() => {
-		if (!attributes.articles || !Array.isArray(attributes.articles) || attributes.articles.length === 0) {
+		if (!attrArticles || !Array.isArray(attrArticles) || attrArticles.length === 0) {
 			setAttributes({ articles: defaultArticles });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,8 +105,8 @@ export default function Edit({ attributes, setAttributes }) {
 
 	// Always fill missing fields for each article for both editor and frontend consistency
 	const articles = (
-		attributes?.articles && Array.isArray(attributes.articles) && attributes.articles.length
-			? attributes.articles.map((article, idx) => ({
+		attrArticles && Array.isArray(attrArticles) && attrArticles.length
+			? attrArticles.map((article, idx) => ({
 				title: article.title ?? defaultArticles[idx]?.title ?? '',
 				description: article.description ?? defaultArticles[idx]?.description ?? '',
 				meta: article.meta ?? defaultArticles[idx]?.meta ?? '',
@@ -181,143 +189,222 @@ export default function Edit({ attributes, setAttributes }) {
 		}
 	};
 
+	const stylePresets = [
+		{ name: 'Blue', color: '#21759b' },
+		{ name: 'White', color: '#fff' },
+		{ name: 'Light Gray', color: '#f3f4f6' },
+		{ name: 'Black', color: '#222' },
+		{ name: 'Green', color: '#34D399' },
+		{ name: 'Purple', color: '#A78BFA' },
+		{ name: 'Orange', color: '#FB923C' },
+	];
+
+	const blockStyle = {
+		'--popular-bg': backgroundColor,
+		'--popular-title-color': titleColor,
+		'--popular-subtitle-color': subtitleColor,
+		'--popular-padding': padding,
+		'--popular-radius': borderRadius,
+		'--popular-shadow': boxShadow,
+		'--popular-align': textAlign,
+		'--popular-card-gap': cardGap,
+	};
+
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Articles', 'popular-articles-block')} initialOpen={true}>
-					{articles.map((article, idx) => (
-						<div key={idx} style={{ 
-							border: '1px solid #ddd', 
-							borderRadius: '8px', 
-							marginBottom: '1rem', 
-							padding: '1rem',
-							backgroundColor: '#f9f9f9'
-						}}>
-							{/* Article Header with Controls */}
-							<div style={{ 
-								display: 'flex', 
-								justifyContent: 'space-between', 
-								alignItems: 'center', 
-								marginBottom: '1rem',
-								paddingBottom: '0.5rem',
-								borderBottom: '1px solid #eee'
-							}}>
-								<h4 style={{ margin: 0, fontSize: '14px', fontWeight: '600' }}>
-									{__('Article', 'popular-articles-block')} #{idx + 1} - {article.title || __('Untitled Article', 'popular-articles-block')}
-								</h4>
-								<ButtonGroup>
-									<Button
-										isSmall
-										icon="arrow-up-alt2"
-										label={__('Move Article Up', 'popular-articles-block')}
-										onClick={() => moveArticleUp(idx)}
-										disabled={idx === 0}
-									/>
-									<Button
-										isSmall
-										icon="arrow-down-alt2"
-										label={__('Move Article Down', 'popular-articles-block')}
-										onClick={() => moveArticleDown(idx)}
-										disabled={idx === (articles.length - 1)}
-									/>
-									<Button
-										isSmall
-										isDestructive
-										icon="trash"
-										label={__('Remove Article', 'popular-articles-block')}
-										onClick={() => removeArticle(idx)}
-										disabled={articles.length <= 1}
-									/>
-								</ButtonGroup>
-							</div>
-
-							<TextControl
-								label={__('Title', 'popular-articles-block')}
-								value={article.title}
-								onChange={(val) => updateArticle(idx, 'title', val)}
-							/>
-							<TextareaControl
-								label={__('Description', 'popular-articles-block')}
-								value={article.description}
-								onChange={(val) => updateArticle(idx, 'description', val)}
-							/>
-							<TextControl
-								label={__('Meta', 'popular-articles-block')}
-								value={article.meta}
-								onChange={(val) => updateArticle(idx, 'meta', val)}
-							/>
-							<TextControl
-								label={__('Icon (play, calendar, palette, envelope)', 'popular-articles-block')}
-								value={article.icon}
-								onChange={(val) => updateArticle(idx, 'icon', val)}
-							/>
-							<TextControl
-								label={__('Color (green, blue, purple, orange)', 'popular-articles-block')}
-								value={article.color}
-								onChange={(val) => updateArticle(idx, 'color', val)}
-							/>
-							<div style={{ marginTop: '8px' }}>
-								<p style={{ marginBottom: 4 }}>{__('Article Background Color', 'popular-articles-block')}</p>
-								<ColorPalette
-									value={article.bgColor}
-									onChange={(color) => updateArticle(idx, 'bgColor', color)}
-								/>
-							</div>
-							<div style={{ marginTop: '8px' }}>
-								<p style={{ marginBottom: 4 }}>{__('Icon Color', 'popular-articles-block')}</p>
-								<ColorPalette
-									value={article.iconColor}
-									onChange={(color) => updateArticle(idx, 'iconColor', color)}
-								/>
-							</div>
-							<div style={{ marginTop: '8px' }}>
-								<p style={{ marginBottom: 4 }}>{__('Icon Background Color', 'popular-articles-block')}</p>
-								<ColorPalette
-									value={article.iconBgColor}
-									onChange={(color) => updateArticle(idx, 'iconBgColor', color)}
-								/>
-							</div>
-							<MediaUpload
-								onSelect={(media) => updateArticle(idx, 'iconUrl', media.url)}
-								allowedTypes={['image']}
-								value={article.iconUrl}
-								render={({ open }) => (
-									<div style={{ marginTop: '8px' }}>
-										<Button onClick={open} isSecondary>
-											{article.iconUrl
-												? __('Change Icon Image', 'popular-articles-block')
-												: __('Upload Icon Image', 'popular-articles-block')}
-										</Button>
-										{article.iconUrl && (
-											<div style={{ marginTop: '8px' }}>
-												<img src={article.iconUrl} alt="" style={{ width: 32, height: 32, objectFit: 'contain' }} />
-												<Button
-													isLink
-													isDestructive
-													onClick={() => updateArticle(idx, 'iconUrl', '')}
-													style={{ display: 'block', marginTop: '4px' }}
-												>
-													{__('Remove Icon Image', 'popular-articles-block')}
-												</Button>
+				<TabPanel
+					tabs={[
+						{ name: 'content', title: __('Content', 'popular-articles-block') },
+						{ name: 'style', title: __('Style', 'popular-articles-block') },
+					]}
+				>
+					{(tab) => (
+						<>
+							{tab.name === 'content' && (
+								<PanelBody title={__('Articles', 'popular-articles-block')} initialOpen={true}>
+									{articles.map((article, idx) => (
+										<div key={idx} style={{ 
+											border: '1px solid #ddd', 
+											borderRadius: '8px', 
+											marginBottom: '1rem', 
+											padding: '1rem',
+											backgroundColor: '#f9f9f9'
+										}}>
+											{/* Article Header with Controls */}
+											<div style={{ 
+												display: 'flex', 
+												justifyContent: 'space-between', 
+												alignItems: 'center', 
+												marginBottom: '1rem',
+												paddingBottom: '0.5rem',
+												borderBottom: '1px solid #eee'
+											}}>
+												<h4 style={{ margin: 0, fontSize: '14px', fontWeight: '600' }}>
+													{__('Article', 'popular-articles-block')} #{idx + 1} - {article.title || __('Untitled Article', 'popular-articles-block')}
+												</h4>
+												<ButtonGroup>
+													<Button
+														isSmall
+														icon="arrow-up-alt2"
+														label={__('Move Article Up', 'popular-articles-block')}
+														onClick={() => moveArticleUp(idx)}
+														disabled={idx === 0}
+													/>
+													<Button
+														isSmall
+														icon="arrow-down-alt2"
+														label={__('Move Article Down', 'popular-articles-block')}
+														onClick={() => moveArticleDown(idx)}
+														disabled={idx === (articles.length - 1)}
+													/>
+													<Button
+														isSmall
+														isDestructive
+														icon="trash"
+														label={__('Remove Article', 'popular-articles-block')}
+														onClick={() => removeArticle(idx)}
+														disabled={articles.length <= 1}
+													/>
+												</ButtonGroup>
 											</div>
-										)}
-									</div>
-								)}
-							/>
-						</div>
-					))}
-					<Button isPrimary onClick={addArticle} style={{ width: '100%' }}>
-						{__('Add New Article', 'popular-articles-block')}
-					</Button>
-				</PanelBody>
+
+											<TextControl
+												label={__('Title', 'popular-articles-block')}
+												value={article.title}
+												onChange={(val) => updateArticle(idx, 'title', val)}
+											/>
+											<TextareaControl
+												label={__('Description', 'popular-articles-block')}
+												value={article.description}
+												onChange={(val) => updateArticle(idx, 'description', val)}
+											/>
+											<TextControl
+												label={__('Meta', 'popular-articles-block')}
+												value={article.meta}
+												onChange={(val) => updateArticle(idx, 'meta', val)}
+											/>
+											<TextControl
+												label={__('Icon (play, calendar, palette, envelope)', 'popular-articles-block')}
+												value={article.icon}
+												onChange={(val) => updateArticle(idx, 'icon', val)}
+											/>
+											<TextControl
+												label={__('Color (green, blue, purple, orange)', 'popular-articles-block')}
+												value={article.color}
+												onChange={(val) => updateArticle(idx, 'color', val)}
+											/>
+											<MediaUpload
+												onSelect={(media) => updateArticle(idx, 'iconUrl', media.url)}
+												allowedTypes={['image']}
+												value={article.iconUrl}
+												render={({ open }) => (
+													<div style={{ marginTop: '8px' }}>
+														<Button onClick={open} isSecondary>
+															{article.iconUrl
+																? __('Change Icon Image', 'popular-articles-block')
+																: __('Upload Icon Image', 'popular-articles-block')}
+														</Button>
+														{article.iconUrl && (
+															<div style={{ marginTop: '8px' }}>
+																<img src={article.iconUrl} alt="" style={{ width: 32, height: 32, objectFit: 'contain' }} />
+																<Button
+																	isLink
+																	isDestructive
+																	onClick={() => updateArticle(idx, 'iconUrl', '')}
+																	style={{ display: 'block', marginTop: '4px' }}
+																>
+																	{__('Remove Icon Image', 'popular-articles-block')}
+																</Button>
+															</div>
+														)}
+													</div>
+												)}
+											/>
+										</div>
+									))}
+									<Button isPrimary onClick={addArticle} style={{ width: '100%' }}>
+										{__('Add New Article', 'popular-articles-block')}
+									</Button>
+								</PanelBody>
+							)}
+							{tab.name === 'style' && (
+								<>
+									<PanelBody title={__('Block Style', 'popular-articles-block')} initialOpen={true}>
+										<ColorPalette
+											colors={stylePresets}
+											value={backgroundColor}
+											onChange={(color) => setAttributes({ backgroundColor: color })}
+										/>
+										<TextControl
+											label={__('Padding', 'popular-articles-block')}
+											value={padding}
+											onChange={(value) => setAttributes({ padding: value })}
+											placeholder="2rem 1rem"
+										/>
+										<TextControl
+											label={__('Border Radius', 'popular-articles-block')}
+											value={borderRadius}
+											onChange={(value) => setAttributes({ borderRadius: value })}
+											placeholder="0px"
+										/>
+										<TextControl
+											label={__('Box Shadow', 'popular-articles-block')}
+											value={boxShadow}
+											onChange={(value) => setAttributes({ boxShadow: value })}
+											placeholder="none"
+										/>
+										<SelectControl
+											label={__('Text Align', 'popular-articles-block')}
+											value={textAlign}
+											onChange={(value) => setAttributes({ textAlign: value })}
+											options={[
+												{ label: __('Left', 'popular-articles-block'), value: 'left' },
+												{ label: __('Center', 'popular-articles-block'), value: 'center' },
+												{ label: __('Right', 'popular-articles-block'), value: 'right' },
+											]}
+										/>
+										<TextControl
+											label={__('Card Gap', 'popular-articles-block')}
+											value={cardGap}
+											onChange={(value) => setAttributes({ cardGap: value })}
+											placeholder="2rem"
+										/>
+									</PanelBody>
+									<PanelBody title={__('Title Style', 'popular-articles-block')} initialOpen={false}>
+										<ColorPalette
+											colors={stylePresets}
+											value={titleColor}
+											onChange={(color) => setAttributes({ titleColor: color })}
+										/>
+									</PanelBody>
+									<PanelBody title={__('Subtitle Style', 'popular-articles-block')} initialOpen={false}>
+										<ColorPalette
+											colors={stylePresets}
+											value={subtitleColor}
+											onChange={(color) => setAttributes({ subtitleColor: color })}
+										/>
+									</PanelBody>
+									<PanelBody title={__('Card Style (Repeater)', 'popular-articles-block')} initialOpen={false}>
+										{articles.map((article, idx) => (
+											<div key={idx} style={{ border: '1px solid #eee', borderRadius: 6, marginBottom: 12, padding: 10, background: '#fafbfc' }}>
+												<strong>{__('Article', 'popular-articles-block')} #{idx + 1}</strong>
+											</div>
+										))}
+									</PanelBody>
+								</>
+							)}
+						</>
+					)}
+				</TabPanel>
 			</InspectorControls>
-			<section id="popular-articles" className="popular-articles" {...useBlockProps()}>
+			<section id="popular-articles" className="popular-articles" {...useBlockProps({ style: blockStyle })}>
 				<div className="popular-container">
 					<div className="section-header">
-						<h2 className="section-title">{__('Popular Articles', 'popular-articles-block')}</h2>
-						<p className="section-subtitle">{__('Most viewed articles this week', 'popular-articles-block')}</p>
+						<h2 className="section-title" style={{ color: 'var(--popular-title-color)' }}>{__('Popular Articles', 'popular-articles-block')}</h2>
+						<p className="section-subtitle" style={{ color: 'var(--popular-subtitle-color)' }}>{__('Most viewed articles this week', 'popular-articles-block')}</p>
 					</div>
-					<div className="articles-grid">
+					<div className="articles-grid" style={{ gap: 'var(--popular-card-gap)' }}>
 						{articles.map((article, idx) => (
 							<div
 								key={idx}

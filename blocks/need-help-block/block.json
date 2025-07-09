@@ -65,6 +65,43 @@
 					"hoverBorder": { "type": "string", "default": "none" }
 				}
 			}
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#f9fafb"
+		},
+		"headingColor": {
+			"type": "string",
+			"default": "#111827"
+		},
+		"descriptionColor": {
+			"type": "string",
+			"default": "#6b7280"
+		},
+		"padding": {
+			"type": "string",
+			"default": "4rem 0"
+		},
+		"borderRadius": {
+			"type": "string",
+			"default": "0px"
+		},
+		"boxShadow": {
+			"type": "string",
+			"default": "none"
+		},
+		"textAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"buttonGap": {
+			"type": "string",
+			"default": "1rem"
+		},
+		"buttonBorderRadius": {
+			"type": "string",
+			"default": "0.5rem"
 		}
+
 	}
 }

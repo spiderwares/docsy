@@ -7,10 +7,11 @@
 
 .wp-block-docsy-header {
 	.header {
-		background: #ffffff;
+		background: var(--header-bg, #ffffff);
 		border-bottom: 1px solid #e5e5e5;
-		padding: 15px 0;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		padding: var(--header-padding, 15px 0);
+		box-shadow: var(--header-box-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
+		border-radius: var(--header-radius, 0px);
 	}
 
 	.container {
@@ -58,11 +59,11 @@
 		margin: 0;
 		font-size: 1.5rem;
 		font-weight: bold;
-		color: #333;
+		color: var(--header-title-color, #333);
 		text-decoration: none;
 
 		&:hover {
-			color: #007cba;
+			color: var(--header-title-color, #007cba);
 		}
 	}
 
@@ -73,7 +74,7 @@
 	}
 
 	.nav-link {
-		color: #666;
+		color: var(--header-menu-color, #666);
 		text-decoration: none;
 		font-weight: 500;
 		padding: 8px 16px;
@@ -82,7 +83,7 @@
 		position: relative;
 
 		&:hover {
-			color: #007cba;
+			color: var(--header-menu-hover-color, #007cba);
 			background-color: rgba(0, 124, 186, 0.1);
 		}
 
@@ -93,7 +94,7 @@
 			left: 50%;
 			width: 0;
 			height: 2px;
-			background: #007cba;
+			background: var(--header-menu-hover-color, #007cba);
 			transition: all 0.2s ease;
 			transform: translateX(-50%);
 		}

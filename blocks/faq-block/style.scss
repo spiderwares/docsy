@@ -5,27 +5,33 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-docsy-faq-block {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.wp-block-docsy-faq-block,
+.faq-block,
+#faq-section {
+	background-color: var(--faq-bg, #21759b);
+	color: var(--faq-text, #fff);
+	padding: var(--faq-padding, 2px);
+	border-radius: var(--faq-radius, 0px);
+	box-shadow: var(--faq-shadow, none);
+	text-align: var(--faq-align, left);
 }
 
-.faq-block {
-	// background and color handled inline
-	padding: 16px;
+.faq-header h2 {
+	color: var(--faq-header-title, #111827);
 }
-.faq-item {
-	margin-bottom: 1em;
+.faq-header p {
+	color: var(--faq-header-subtitle, #4B5563);
 }
-.faq-question {
-	font-weight: bold;
-	margin-bottom: 0.25em;
+.faq-list {
+	gap: var(--faq-gap, 1.5rem);
+	display: flex;
+	flex-direction: column;
 }
-.faq-answer {
-	margin-left: 1em;
+.faq-item button {
+	color: var(--faq-question, #111827);
 }
 .faq-content {
+	color: var(--faq-answer, #4B5563);
 	display: none;
 	transition: all 0.2s;
 	&.show {

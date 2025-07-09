@@ -29,8 +29,18 @@ export default function save({ attributes }) {
 		articleCountFontSize = 14,
 		articleCountBold = false,
 	} = attributes;
+	const sectionStyle = {
+		'--section-bg': sectionBg,
+		'--card-bg': cardBg,
+		'--card-content-align': cardContentAlign,
+		'--icon-size': iconSize + 'px',
+		'--icon-radius': iconRadius + '%',
+		'--article-count-color': articleCountColor,
+		'--article-count-font-size': articleCountFontSize + 'px',
+		'--article-count-bold': articleCountBold ? 'bold' : 'normal',
+	};
 	return (
-		<section {...useBlockProps.save()} style={{ background: sectionBg }}>
+		<section {...useBlockProps.save({ style: sectionStyle })}>
 		<div className="category-container">
 			<div className="section-header">
 				<h2>{heading}</h2>
@@ -41,27 +51,26 @@ export default function save({ attributes }) {
 					<div
 						key={idx}
 						className={`category-card align-item-${cardContentAlign}`}
-						style={{ background: cardBg }}
+						style={{ background: 'var(--card-bg)' }}
 					>
 						<div
 							className={`icon-box ${card.color}`}
 							style={{
-								borderRadius: `${iconRadius}%`,
-								width: iconSize + 32,
-								height: iconSize + 32,
-								
+								borderRadius: 'var(--icon-radius)',
+								width: `calc(var(--icon-size) + 32px)`,
+								height: `calc(var(--icon-size) + 32px)`,
 							}}
 						>
 							{card.iconUrl ? (
 								<img
 									src={card.iconUrl}
 									alt="Icon"
-									style={{ width: iconSize, height: iconSize, objectFit: 'contain' }}
+									style={{ width: 'var(--icon-size)', height: 'var(--icon-size)', objectFit: 'contain' }}
 								/>
 							) : (
 								<span
 									dangerouslySetInnerHTML={{ __html: card.icon }}
-									style={{ width: iconSize, height: iconSize, display: 'inline-block' }}
+									style={{ width: 'var(--icon-size)', height: 'var(--icon-size)', display: 'inline-block' }}
 								/>
 							)}
 						</div>
@@ -70,9 +79,9 @@ export default function save({ attributes }) {
 						<span
 							className="article-count"
 							style={{
-								color: card.articleCountColor || articleCountColor,
-								fontSize: articleCountFontSize,
-								fontWeight: articleCountBold ? 'bold' : 'normal',
+								color: card.articleCountColor || 'var(--article-count-color)',
+								fontSize: 'var(--article-count-font-size)',
+								fontWeight: card.articleCountBold ? 'bold' : 'var(--article-count-bold)',
 								display: 'block',
 								marginTop: 8,
 							}}
